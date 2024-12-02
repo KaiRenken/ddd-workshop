@@ -7,11 +7,13 @@ import org.springframework.stereotype.Repository
 @Repository
 class RaumRepositoryImpl : RaumRepository {
 
-    private val roomList = ArrayList<Raum>()
+    private val raumList = ArrayList<Raum>()
 
-    override fun existiert(raumnummer: Raum.Nummer) = roomList.any { it.raumnummer == raumnummer }
+    override fun existiert(raumnummer: Raum.Nummer) = raumList.any { it.raumnummer == raumnummer }
 
     override fun legeAn(raum: Raum) {
-        roomList.add(raum)
+        raumList.add(raum)
     }
+
+    override fun findeRaum(id: Raum.Id): Raum? = raumList.firstOrNull { it.id == id }
 }

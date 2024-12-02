@@ -31,5 +31,5 @@ class RaumAnlage(private val raumRepository: RaumRepository) {
 
     class RaumAngelegt(val raum: Raum) : Ergebnis()
     class UngueltigerWert(val fehlermeldung: String) : Ergebnis()
-    class RaumnummerExistiertSchon(raumnummer: Raum.Nummer) : Ergebnis()
+    class RaumnummerExistiertSchon(val raumnummer: Raum.Nummer) : Ergebnis()
 }
