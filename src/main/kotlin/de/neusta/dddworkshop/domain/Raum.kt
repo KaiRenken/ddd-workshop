@@ -7,27 +7,27 @@ import java.util.UUID
 @AggregateRoot
 class Raum(
     val id: Id = Id(),
-    val raumnummer: Raumnummer,
+    val raumnummer: Nummer,
     val name: Name
-)
+) {
+    @ValueObject
+    class Id(val value: UUID = UUID.randomUUID())
 
-@ValueObject
-class Id(val value: UUID = UUID.randomUUID())
-
-@ValueObject
-class Raumnummer(val value: String) {
-    init {
-        require(value.length == 4 && value.all { it.isDigit() }) {
-            "Die Raumnummer '$value' ist ungültig."
+    @ValueObject
+    class Nummer(val value: String) {
+        init {
+            require(value.length == 4 && value.all { it.isDigit() }) {
+                "Die Raumnummer '$value' ist ungültig."
+            }
         }
     }
-}
 
-@ValueObject
-class Name(val value: String) {
-    init {
-        require(value.isNotBlank() && value.length <= 100) {
-            "Der Name '$value' ist ungültig."
+    @ValueObject
+    class Name(val value: String) {
+        init {
+            require(value.isNotBlank() && value.length <= 100) {
+                "Der Name '$value' ist ungültig."
+            }
         }
     }
 }
