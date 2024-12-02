@@ -8,7 +8,8 @@ import java.util.UUID
 data class Raum(
     val id: Id = Id(),
     val raumnummer: Nummer,
-    val name: Name
+    val name: Name,
+    val personIds: MutableList<PersonId> = ArrayList()
 ) {
     @ValueObject
     data class Id(val value: UUID = UUID.randomUUID())
@@ -29,5 +30,12 @@ data class Raum(
                 "Der Name '$value' ist ungültig."
             }
         }
+    }
+
+    @ValueObject
+    data class PersonId(val value: UUID)
+
+    fun fuegePersonHinzu(personId: PersonId) {
+        personIds.add(personId)
     }
 }
