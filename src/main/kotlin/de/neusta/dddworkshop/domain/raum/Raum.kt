@@ -1,4 +1,4 @@
-package de.neusta.dddworkshop.domain
+package de.neusta.dddworkshop.domain.raum
 
 import de.neusta.dddworkshop.common.AggregateRoot
 import de.neusta.dddworkshop.common.ValueObject

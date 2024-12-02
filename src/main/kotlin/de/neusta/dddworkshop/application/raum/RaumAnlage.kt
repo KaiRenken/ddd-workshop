@@ -1,8 +1,8 @@
-package de.neusta.dddworkshop.application
+package de.neusta.dddworkshop.application.raum
 
 import de.neusta.dddworkshop.common.UseCase
-import de.neusta.dddworkshop.domain.Raum
-import de.neusta.dddworkshop.domain.RaumRepository
+import de.neusta.dddworkshop.domain.raum.Raum
+import de.neusta.dddworkshop.domain.raum.RaumRepository
 
 @UseCase
 class RaumAnlage(private val raumRepository: RaumRepository) {
