@@ -4,7 +4,6 @@ import de.neusta.dddworkshop.application.raum.PersonZuRaumHinzufuegung
 import de.neusta.dddworkshop.application.raum.RaumAnlage
 import de.neusta.dddworkshop.application.raum.RaumSuche
 import de.neusta.dddworkshop.domain.raum.Raum
-import de.neusta.dddworkshop.domain.raum.RaumRepository
 import de.neusta.dddworkshop.infrastructure.common.ErrorResponseDto
 import de.neusta.dddworkshop.infrastructure.raum.rest.dto.AddPersonDto
 import de.neusta.dddworkshop.infrastructure.raum.rest.dto.CreateRaumDto
@@ -24,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController
 class RaumController(
     private val raumAnlage: RaumAnlage,
     private val raumSuche: RaumSuche,
-    private val personZuRaumHinzufuegung: PersonZuRaumHinzufuegung,
-    private val raumRepository: RaumRepository
+    private val personZuRaumHinzufuegung: PersonZuRaumHinzufuegung
 ) {
 
     @PostMapping(value = ["/api/room"], consumes = ["application/json"], produces = ["application/json"])
