@@ -14,7 +14,6 @@ class RaumAnlage(private val raumRepository: RaumRepository) {
                 name = Raum.Name(name)
             )
 
-
             if (raumRepository.existiert(raumnummer = neuerRaum.raumnummer)) {
                 return RaumnummerExistiertSchon(neuerRaum.raumnummer)
             }
