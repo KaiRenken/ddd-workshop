@@ -10,4 +10,10 @@ interface RaumRepository {
     fun legeAn(raum: Raum)
 
     fun findeRaum(id: Raum.Id): Raum?
+
+    fun findeRaumZuPerson(benutzername: Raum.Person.Benutzername): Raum?
+
+    fun findeMitId(raumId: Raum.Id): Raum?
+
+    fun aktuelisiereRaum(raum: Raum)
 }

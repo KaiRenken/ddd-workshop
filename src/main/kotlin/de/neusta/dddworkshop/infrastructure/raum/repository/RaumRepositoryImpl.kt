@@ -16,4 +16,16 @@ class RaumRepositoryImpl : RaumRepository {
     }
 
     override fun findeRaum(id: Raum.Id): Raum? = raumList.firstOrNull { it.id == id }
+
+    override fun findeRaumZuPerson(benutzername: Raum.Person.Benutzername): Raum? {
+        TODO("Not yet implemented")
+    }
+
+    override fun findeMitId(raumId: Raum.Id): Raum? {
+        TODO("Not yet implemented")
+    }
+
+    override fun aktuelisiereRaum(raum: Raum) {
+        TODO("Not yet implemented")
+    }
 }
