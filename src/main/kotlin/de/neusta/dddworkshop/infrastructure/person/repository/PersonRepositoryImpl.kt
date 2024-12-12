@@ -9,7 +9,7 @@ class PersonRepositoryImpl : PersonRepository {
 
     private val personList = ArrayList<Person>()
 
-    override fun speichere(person: Person) {
+    override fun legeAn(person: Person) {
         personList.add(person)
     }
 
