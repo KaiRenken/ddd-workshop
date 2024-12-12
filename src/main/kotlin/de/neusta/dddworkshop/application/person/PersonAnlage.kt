@@ -22,7 +22,7 @@ class PersonAnlage(private val personRepository: PersonRepository) {
                 return BenutzernameExistiertSchon(neuePerson.benutzername)
             }
 
-            personRepository.legeAn(neuePerson)
+            personRepository.speichere(neuePerson)
 
             return PersonAngelegt(neuePerson)
         } catch (exception: Exception) {

@@ -30,7 +30,7 @@ data class Person(
     data class Benutzername(val value: String) {
         init {
             require(value.isNotBlank()) {
-                "Der Benutzername '$value' ist ungültig."
+                "Der Benutzername ist leer."
             }
         }
     }

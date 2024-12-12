@@ -5,7 +5,7 @@ import de.neusta.dddworkshop.common.Repository
 @Repository
 interface PersonRepository {
 
-    fun legeAn(person: Person)
+    fun speichere(person: Person)
 
     fun existiert(benutzername: Person.Benutzername): Boolean
 
