@@ -1,22 +1,17 @@
 package de.neusta.dddworkshop.infrastructure.raum.rest
 
-import de.neusta.dddworkshop.application.raum.PersonZuRaumHinzufuegung
 import de.neusta.dddworkshop.application.raum.RaumAnlage
-import de.neusta.dddworkshop.application.raum.RaumSuche
 import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.domain.raum.RaumRepository
 import de.neusta.dddworkshop.infrastructure.common.ErrorResponseDto
-import de.neusta.dddworkshop.infrastructure.raum.rest.dto.AddPersonDto
 import de.neusta.dddworkshop.infrastructure.raum.rest.dto.CreateRaumDto
 import de.neusta.dddworkshop.infrastructure.raum.rest.dto.ReadRaumDto
-import de.neusta.dddworkshop.infrastructure.raum.rest.dto.ReadRaumMitPersonenDto
 import java.util.UUID
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -57,37 +52,17 @@ class RaumController(
                 HttpStatus.NOT_FOUND
             )
 
-            is RaumSuche.RaumGefunden -> ResponseEntity.ok(
-                ReadRaumMitPersonenDto(
-                    id = suchErgebnis.raumMitPersonen.raum.id.value,
-                    raumnummer = suchErgebnis.raumMitPersonen.raum.raumnummer.value,
-                    name = suchErgebnis.raumMitPersonen.raum.name.value,
-                    personen = suchErgebnis.raumMitPersonen.personen
+        return if (raum != null) {
+            ResponseEntity.ok(
+                ReadRaumDto(
+                    id = raum.id.value,
+                    raumnummer = raum.raumnummer.value,
+                    name = raum.name.value
                 )
             )
-        }
-    }
-
-    @PutMapping(value = ["/api/room/{id}/person"], consumes = ["application/json"], produces = ["application/json"])
-    fun putPersonInRaum(@PathVariable id: UUID, @RequestBody addPersonDto: AddPersonDto): ResponseEntity<Any> {
-        val ergebnis =
-            personZuRaumHinzufuegung.fuegePersonHinzu(
-                raumId = Raum.Id(id),
-                personId = Raum.PersonId(addPersonDto.personId)
-            )
-
-        return when (ergebnis) {
-            PersonZuRaumHinzufuegung.PersonHinzugefuegt -> ResponseEntity.ok().build()
-            is PersonZuRaumHinzufuegung.PersonIstSchonAnderemRaumZugeordnet -> ResponseEntity.badRequest()
-                .body(ErrorResponseDto("Die Person mit id '${ergebnis.personId.value}' ist schon dem Raum mit id '${ergebnis.raumId.value}' zugeordnet."))
-
-            is PersonZuRaumHinzufuegung.PersonNichtGefunden -> ResponseEntity(
-                ErrorResponseDto("Person mit id '${ergebnis.personId.value}' existiert nicht"),
-                HttpStatus.NOT_FOUND
-            )
-
-            is PersonZuRaumHinzufuegung.RaumNichtGefunden -> ResponseEntity(
-                ErrorResponseDto("Raum mit id '${ergebnis.raumId.value}' existiert nicht"),
+        } else {
+            ResponseEntity(
+                ErrorResponseDto("Raum mit id '$id' existiert nicht"),
                 HttpStatus.NOT_FOUND
             )
         }
