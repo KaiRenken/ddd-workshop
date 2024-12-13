@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class PersonController(private val personAnlage: PersonAnlage, private val personRepository: PersonRepository) {
 
     @PostMapping(value = ["/api/person"], consumes = ["application/json"], produces = ["application/json"])
-    fun postRaum(@RequestBody createPersonDto: CreatePersonDto): ResponseEntity<Any> {
+    fun postPerson(@RequestBody createPersonDto: CreatePersonDto): ResponseEntity<Any> {
         val anlageErgebnis = personAnlage.legeAn(
             vorname = createPersonDto.vorname,
             nachname = createPersonDto.nachname,
