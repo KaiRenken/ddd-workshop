@@ -11,7 +11,7 @@ import de.neusta.dddworkshop.domain.raum.RaumRepository
 class RaumSuche(private val raumRepository: RaumRepository, private val personRepository: PersonRepository) {
 
     fun sucheRaum(id: Raum.Id): Ergebnis {
-        val raum = raumRepository.findeRaum(id) ?: return RaumExistiertNicht(id)
+        val raum = raumRepository.findeMit(id) ?: return RaumExistiertNicht(id)
 
         val personen =
             raum.personIds.mapNotNull { personRepository.findePerson(Person.Id(it.value))?.erzeugeKurzschreibweise() }

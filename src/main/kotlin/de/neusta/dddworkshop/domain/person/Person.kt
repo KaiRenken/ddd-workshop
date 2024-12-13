@@ -17,10 +17,10 @@ data class Person(
     @ValueObject
     data class Name(val vorname: String, val nachname: String) {
         init {
-            require(vorname.isNotBlank()) {
+            require(vorname.isNotBlank() && vorname.length <= 100) {
                 "Der Vorname '$vorname' ist ungültig."
             }
-            require(nachname.isNotBlank()) {
+            require(nachname.isNotBlank() && nachname.length <= 100) {
                 "Der Nachname '$nachname' ist ungültig."
             }
         }
@@ -29,7 +29,7 @@ data class Person(
     @ValueObject
     data class Benutzername(val value: String) {
         init {
-            require(value.isNotBlank()) {
+            require(value.isNotBlank() && value.length <= 100) {
                 "Der Benutzername '$value' ist ungültig."
             }
         }

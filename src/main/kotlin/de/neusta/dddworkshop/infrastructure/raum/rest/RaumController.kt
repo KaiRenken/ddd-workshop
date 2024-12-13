@@ -3,6 +3,7 @@ package de.neusta.dddworkshop.infrastructure.raum.rest
 import de.neusta.dddworkshop.application.raum.PersonZuRaumHinzufuegung
 import de.neusta.dddworkshop.application.raum.RaumAnlage
 import de.neusta.dddworkshop.application.raum.RaumSuche
+import de.neusta.dddworkshop.domain.person.Person
 import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.infrastructure.common.ErrorResponseDto
 import de.neusta.dddworkshop.infrastructure.raum.rest.dto.AddPersonDto
@@ -71,7 +72,7 @@ class RaumController(
         val ergebnis =
             personZuRaumHinzufuegung.fuegePersonHinzu(
                 raumId = Raum.Id(id),
-                personId = Raum.PersonId(addPersonDto.personId)
+                personId = Person.Id(addPersonDto.personId)
             )
 
         return when (ergebnis) {

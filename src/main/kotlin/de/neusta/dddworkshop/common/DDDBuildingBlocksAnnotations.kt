@@ -29,7 +29,7 @@ annotation class ValueObject
 /**
  * Marks given class as DDD building block 'domain event'.
  */
-@Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
+@Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 @MustBeDocumented
 annotation class DomainEvent
