@@ -17,9 +17,6 @@ class PersonZuRaumHinzufuegung(
 
         if (!raumRepository.existiert(raumId)) return RaumNichtGefunden(raumId)
 
-        val raumMitPerson = raumRepository.findeRaumMitPerson(personId)
-        if (raumMitPerson != null) return PersonIstSchonAnderemRaumZugeordnet(personId, raumMitPerson.id)
-
         raumRepository.fuegePersonHinzu(raumId, personId)
 
         return PersonHinzugefuegt
@@ -30,5 +27,4 @@ class PersonZuRaumHinzufuegung(
     data object PersonHinzugefuegt : Ergebnis()
     class PersonNichtGefunden(val personId: Person.Id) : Ergebnis()
     class RaumNichtGefunden(val raumId: Raum.Id) : Ergebnis()
-    class PersonIstSchonAnderemRaumZugeordnet(val personId: Person.Id, val raumId: Raum.Id) : Ergebnis()
 }

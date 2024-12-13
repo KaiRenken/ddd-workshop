@@ -77,8 +77,6 @@ class RaumController(
 
         return when (ergebnis) {
             PersonZuRaumHinzufuegung.PersonHinzugefuegt -> ResponseEntity.ok().build()
-            is PersonZuRaumHinzufuegung.PersonIstSchonAnderemRaumZugeordnet -> ResponseEntity.badRequest()
-                .body(ErrorResponseDto("Die Person mit id '${ergebnis.personId.value}' ist schon dem Raum mit id '${ergebnis.raumId.value}' zugeordnet."))
 
             is PersonZuRaumHinzufuegung.PersonNichtGefunden -> ResponseEntity(
                 ErrorResponseDto("Person mit id '${ergebnis.personId.value}' existiert nicht"),
