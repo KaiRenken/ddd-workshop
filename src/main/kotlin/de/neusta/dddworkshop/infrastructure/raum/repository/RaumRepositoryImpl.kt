@@ -11,9 +11,9 @@ class RaumRepositoryImpl : RaumRepository {
 
     override fun existiert(raumnummer: Raum.Nummer) = raumList.any { it.raumnummer == raumnummer }
 
-    override fun legeAn(raum: Raum) {
+    override fun speichere(raum: Raum) {
         raumList.add(raum)
     }
 
-    override fun findeRaum(id: Raum.Id): Raum? = raumList.firstOrNull { it.id == id }
+    override fun findeMit(id: Raum.Id): Raum? = raumList.firstOrNull { it.id == id }
 }

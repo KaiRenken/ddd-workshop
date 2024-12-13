@@ -7,7 +7,7 @@ interface RaumRepository {
 
     fun existiert(raumnummer: Raum.Nummer): Boolean
 
-    fun legeAn(raum: Raum)
+    fun speichere(raum: Raum)
 
-    fun findeRaum(id: Raum.Id): Raum?
+    fun findeMit(id: Raum.Id): Raum?
 }

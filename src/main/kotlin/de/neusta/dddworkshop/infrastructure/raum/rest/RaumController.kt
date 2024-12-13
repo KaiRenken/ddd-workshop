@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 class RaumController(private val raumAnlage: RaumAnlage, private val raumRepository: RaumRepository) {
 
     @PostMapping(value = ["/api/room"], consumes = ["application/json"], produces = ["application/json"])
-    fun postRoom(@RequestBody createRoomDto: CreateRaumDto): ResponseEntity<Any> {
+    fun postRaum(@RequestBody createRoomDto: CreateRaumDto): ResponseEntity<Any> {
         val anlageErgebnis = raumAnlage.legeAn(raumnummer = createRoomDto.raumnummer, name = createRoomDto.name)
 
         return when (anlageErgebnis) {
@@ -40,8 +40,8 @@ class RaumController(private val raumAnlage: RaumAnlage, private val raumReposit
     }
 
     @GetMapping(value = ["/api/room/{id}"], produces = ["application/json"])
-    fun getRoom(@PathVariable id: UUID): ResponseEntity<Any> {
-        val raum = raumRepository.findeRaum(Raum.Id(id))
+    fun getRaum(@PathVariable id: UUID): ResponseEntity<Any> {
+        val raum = raumRepository.findeMit(Raum.Id(id))
 
         return if (raum != null) {
             ResponseEntity.ok(

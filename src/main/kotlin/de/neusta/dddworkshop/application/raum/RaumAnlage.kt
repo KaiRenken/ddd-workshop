@@ -18,7 +18,7 @@ class RaumAnlage(private val raumRepository: RaumRepository) {
                 return RaumnummerExistiertSchon(neuerRaum.raumnummer)
             }
 
-            raumRepository.legeAn(neuerRaum)
+            raumRepository.speichere(neuerRaum)
 
             return RaumAngelegt(neuerRaum)
         } catch (exception: Exception) {
