@@ -10,11 +10,7 @@ interface RaumRepository {
 
     fun speichere(raum: Raum)
 
-    fun existiert(id: Raum.Id): Boolean
-
     fun findeRaumMitPerson(personId: Person.Id): Raum?
-
-    fun fuegePersonHinzu(raumId: Raum.Id, personId: Person.Id)
 
     fun findeMit(id: Raum.Id): Raum?
 }

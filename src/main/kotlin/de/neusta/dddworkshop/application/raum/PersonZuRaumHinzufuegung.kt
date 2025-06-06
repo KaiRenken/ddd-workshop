@@ -15,12 +15,14 @@ class PersonZuRaumHinzufuegung(
     fun fuegePersonHinzu(raumId: Raum.Id, personId: Person.Id): Ergebnis {
         if (!personRepository.existiert(personId)) return PersonNichtGefunden(personId)
 
-        if (!raumRepository.existiert(raumId)) return RaumNichtGefunden(raumId)
-
         val raumMitPerson = raumRepository.findeRaumMitPerson(personId)
         if (raumMitPerson != null) return PersonIstSchonAnderemRaumZugeordnet(personId, raumMitPerson.id)
 
-        raumRepository.fuegePersonHinzu(raumId, personId)
+        val raumZumPersonHinzufuegen = raumRepository.findeMit(raumId) ?: return RaumNichtGefunden(raumId)
+
+        raumZumPersonHinzufuegen.fuegePersonHinzu(personId)
+
+        raumRepository.speichere(raumZumPersonHinzufuegen)
 
         return PersonHinzugefuegt
     }
