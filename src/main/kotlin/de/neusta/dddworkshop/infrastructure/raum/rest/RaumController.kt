@@ -85,9 +85,6 @@ class RaumController(
 
                 PersonZuordnung.PersonHinzugefuegt -> return ResponseEntity.noContent().build()
 
-                is PersonZuordnung.PersonSchonInAnderemRaum -> return ResponseEntity.badRequest()
-                    .body(ErrorResponseDto("Die Person mit der ID ${putPersonInRaumDto.personId} ist schon im Raum mit der ID ${this.raumId.value}"))
-
                 PersonZuordnung.RaumExistiertNicht -> return ResponseEntity(
                     ErrorResponseDto("Der Raum mit der ID $raumId existiert nicht."),
                     HttpStatus.NOT_FOUND
