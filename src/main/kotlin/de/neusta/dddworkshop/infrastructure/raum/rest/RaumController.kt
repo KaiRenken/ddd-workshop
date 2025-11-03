@@ -1,6 +1,6 @@
 package de.neusta.dddworkshop.infrastructure.raum.rest
 
-import de.neusta.dddworkshop.application.raum.PersonHinzufuegung
+import de.neusta.dddworkshop.application.raum.PersonZuordnung
 import de.neusta.dddworkshop.application.raum.RaumAbfrage
 import de.neusta.dddworkshop.application.raum.RaumAnlage
 import de.neusta.dddworkshop.domain.person.Person
@@ -19,7 +19,7 @@ import java.util.*
 class RaumController(
     private val raumAnlage: RaumAnlage,
     private val raumAbfrage: RaumAbfrage,
-    private val personHinzufuegung: PersonHinzufuegung
+    private val personZuordnung: PersonZuordnung
 ) {
 
     @PostMapping(consumes = ["application/json"], produces = ["application/json"])
@@ -73,22 +73,22 @@ class RaumController(
         @PathVariable raumId: UUID,
         @RequestBody putPersonInRaumDto: PutPersonInRaumDto
     ): ResponseEntity<Any> {
-        personHinzufuegung.fuegePersonZuRaumHinzu(
+        personZuordnung.ordnePersonRaumZu(
             personId = Person.Id(putPersonInRaumDto.personId),
             raumId = Raum.Id(raumId)
         ).apply {
             when (this) {
-                PersonHinzufuegung.PersonExistiertNicht -> return ResponseEntity(
+                PersonZuordnung.PersonExistiertNicht -> return ResponseEntity(
                     ErrorResponseDto("Die Person mit der ID ${putPersonInRaumDto.personId} existiert nicht."),
                     HttpStatus.NOT_FOUND
                 )
 
-                PersonHinzufuegung.PersonHinzugefuegt -> return ResponseEntity.noContent().build()
+                PersonZuordnung.PersonHinzugefuegt -> return ResponseEntity.noContent().build()
 
-                is PersonHinzufuegung.PersonSchonInAnderemRaum -> return ResponseEntity.badRequest()
+                is PersonZuordnung.PersonSchonInAnderemRaum -> return ResponseEntity.badRequest()
                     .body(ErrorResponseDto("Die Person mit der ID ${putPersonInRaumDto.personId} ist schon im Raum mit der ID ${this.raumId.value}"))
 
-                PersonHinzufuegung.RaumExistiertNicht -> return ResponseEntity(
+                PersonZuordnung.RaumExistiertNicht -> return ResponseEntity(
                     ErrorResponseDto("Der Raum mit der ID $raumId existiert nicht."),
                     HttpStatus.NOT_FOUND
                 )
