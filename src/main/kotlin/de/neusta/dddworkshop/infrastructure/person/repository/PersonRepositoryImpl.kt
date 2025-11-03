@@ -17,4 +17,6 @@ class PersonRepositoryImpl : PersonRepository {
         personList.any { it.benutzername == benutzername }
 
     override fun existiertMit(id: Person.Id): Boolean = personList.any { it.id == id }
+
+    override fun findeMit(id: Person.Id): Person? = personList.firstOrNull { it.id == id }
 }

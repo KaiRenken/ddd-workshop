@@ -74,5 +74,11 @@ data class Raum(
         }
     }
 
-    fun fuegePersonHinzu(personId: Person.Id) = personen.add(personId)
+    fun fuegePersonHinzu(personId: Person.Id) {
+        personen.apply {
+            if (contains(personId)) return
+
+            add(personId)
+        }
+    }
 }
