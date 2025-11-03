@@ -74,6 +74,7 @@
                 <configuration>
                     <args>
                         <arg>-Xjsr305=strict</arg>
+                        <arg>-Xconsistent-data-class-copy-visibility</arg>
                     </args>
                     <compilerPlugins>
                         <plugin>spring</plugin>

@@ -9,7 +9,7 @@ class RaumRepositoryImpl : RaumRepository {
 
     private val raumList = ArrayList<Raum>()
 
-    override fun existiert(raumnummer: Raum.Nummer) = raumList.any { it.raumnummer == raumnummer }
+    override fun existiert(nummer: Raum.Nummer) = raumList.any { it.nummer == nummer }
 
     override fun speichere(raum: Raum) {
         raumList.add(raum)

@@ -1,6 +1,6 @@
 package de.neusta.dddworkshop.infrastructure.raum.rest.dto
 
 data class CreateRaumDto(
-    val raumnummer: String,
+    val nummer: String,
     val name: String
 )
