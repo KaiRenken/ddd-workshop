@@ -1,13 +1,15 @@
 package de.neusta.dddworkshop.domain.raum
 
 import de.neusta.dddworkshop.common.*
+import de.neusta.dddworkshop.domain.person.Person
 import java.util.*
 
 @AggregateRoot
 data class Raum(
     val id: Id = Id(),
     val nummer: Nummer,
-    val name: Name
+    val name: Name,
+    val personen: MutableList<Person.Id> = mutableListOf()
 ) {
     @ValueObject
     data class Id(val value: UUID = UUID.randomUUID())
@@ -71,4 +73,6 @@ data class Raum(
             )
         }
     }
+
+    fun fuegePersonHinzu(personId: Person.Id) = personen.add(personId)
 }

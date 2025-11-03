@@ -1,0 +1,20 @@
+package de.neusta.dddworkshop.infrastructure.person.repository
+
+import de.neusta.dddworkshop.domain.person.Person
+import de.neusta.dddworkshop.domain.person.PersonRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+class PersonRepositoryImpl : PersonRepository {
+
+    private val personList = ArrayList<Person>()
+
+    override fun speichere(person: Person) {
+        personList.add(person)
+    }
+
+    override fun existiertMit(benutzername: Person.Benutzername): Boolean =
+        personList.any { it.benutzername == benutzername }
+
+    override fun existiertMit(id: Person.Id): Boolean = personList.any { it.id == id }
+}
