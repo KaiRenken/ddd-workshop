@@ -58,9 +58,10 @@ class RaumController(
 
                     is RaumAbfrage.RaumGefunden -> return ResponseEntity.ok(
                         ReadRaumDto(
-                            id = this.raum.id.value,
-                            raumnummer = this.raum.nummer.value,
-                            name = this.raum.name.value
+                            id = this.raum.raum.id.value,
+                            raumnummer = this.raum.raum.nummer.value,
+                            name = this.raum.raum.name.value,
+                            personen = this.raum.personen
                         )
                     )
                 }

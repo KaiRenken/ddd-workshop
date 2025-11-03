@@ -5,5 +5,6 @@ import java.util.UUID
 data class ReadRaumDto(
     val id: UUID,
     val raumnummer: String,
-    val name: String
+    val name: String,
+    val personen: List<String> = emptyList()
 )

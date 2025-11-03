@@ -10,4 +10,6 @@ interface PersonRepository {
     fun existiertMit(benutzername: Person.Benutzername): Boolean
 
     fun existiertMit(id: Person.Id): Boolean
+
+    fun findeMit(id: Person.Id): Person?
 }

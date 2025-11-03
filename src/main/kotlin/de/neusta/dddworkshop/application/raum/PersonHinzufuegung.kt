@@ -7,9 +7,15 @@ import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.domain.raum.RaumRepository
 
 @UseCase
-class PersonHinzufuegung(private val personRepository: PersonRepository, private val raumRepository: RaumRepository) {
+class PersonHinzufuegung(
+    private val personRepository: PersonRepository,
+    private val raumRepository: RaumRepository
+) {
 
-    fun fuegePersonZuRaumHinzu(personId: Person.Id, raumId: Raum.Id): Ergebnis {
+    fun fuegePersonZuRaumHinzu(
+        personId: Person.Id,
+        raumId: Raum.Id
+    ): Ergebnis {
         if (!personRepository.existiertMit(personId)) return PersonExistiertNicht
 
         raumRepository.findeMit(personId)?.let {
@@ -20,7 +26,7 @@ class PersonHinzufuegung(private val personRepository: PersonRepository, private
 
         raum.fuegePersonHinzu(personId)
 
-        raumRepository.speichere(raum)
+        raumRepository.bearbeite(raum)
 
         return PersonHinzugefuegt
     }

@@ -16,6 +16,14 @@ class RaumRepositoryImpl : RaumRepository {
         raumList.add(raum)
     }
 
+    override fun bearbeite(raum: Raum) {
+        raumList.first { it.id == raum.id }
+            .apply {
+                raumList.remove(this)
+                raumList.add(raum)
+            }
+    }
+
     override fun findeMit(raumId: Raum.Id): Raum? = raumList.firstOrNull { it.id == raumId }
 
     override fun findeMit(personId: Person.Id): Raum? = raumList.firstOrNull { it.personen.contains(personId) }

@@ -10,6 +10,8 @@ interface RaumRepository {
 
     fun speichere(raum: Raum)
 
+    fun bearbeite(raum: Raum)
+
     fun findeMit(raumId: Raum.Id): Raum?
 
     fun findeMit(personId: Person.Id): Raum?
