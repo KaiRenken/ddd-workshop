@@ -7,12 +7,12 @@ import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.domain.raum.RaumRepository
 
 @UseCase
-class PersonHinzufuegung(
+class PersonZuordnung(
     private val personRepository: PersonRepository,
     private val raumRepository: RaumRepository
 ) {
 
-    fun fuegePersonZuRaumHinzu(
+    fun ordnePersonRaumZu(
         personId: Person.Id,
         raumId: Raum.Id
     ): Ergebnis {
