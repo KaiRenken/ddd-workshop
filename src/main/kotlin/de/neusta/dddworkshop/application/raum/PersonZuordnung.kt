@@ -3,13 +3,16 @@ package de.neusta.dddworkshop.application.raum
 import de.neusta.dddworkshop.common.UseCase
 import de.neusta.dddworkshop.domain.person.Person
 import de.neusta.dddworkshop.domain.person.PersonRepository
+import de.neusta.dddworkshop.domain.raum.PersonWurdeRaumZugeordnetEvent
 import de.neusta.dddworkshop.domain.raum.Raum
+import de.neusta.dddworkshop.domain.raum.RaumEventRepository
 import de.neusta.dddworkshop.domain.raum.RaumRepository
 
 @UseCase
 class PersonZuordnung(
     private val personRepository: PersonRepository,
-    private val raumRepository: RaumRepository
+    private val raumRepository: RaumRepository,
+    private val raumEventRepository: RaumEventRepository
 ) {
 
     fun ordnePersonRaumZu(
@@ -23,6 +26,12 @@ class PersonZuordnung(
         raum.fuegePersonHinzu(personId)
 
         raumRepository.bearbeite(raum)
+        raumEventRepository.werfePersonWurdeRaumZugeordnetEvent(
+            PersonWurdeRaumZugeordnetEvent(
+                personId = personId,
+                raumId = raumId
+            )
+        )
 
         return PersonHinzugefuegt
     }

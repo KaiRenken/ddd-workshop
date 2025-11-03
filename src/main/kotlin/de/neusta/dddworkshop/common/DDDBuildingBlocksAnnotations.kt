@@ -44,3 +44,11 @@ annotation class Repository
 @MustBeDocumented
 @Component
 annotation class UseCase
+
+/**
+ * Marks class as DDD building block 'domain event'.
+ */
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.SOURCE)
+@MustBeDocumented
+annotation class DomainEvent
