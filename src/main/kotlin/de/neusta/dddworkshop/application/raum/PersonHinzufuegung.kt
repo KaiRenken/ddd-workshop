@@ -18,10 +18,6 @@ class PersonHinzufuegung(
     ): Ergebnis {
         if (!personRepository.existiertMit(personId)) return PersonExistiertNicht
 
-        raumRepository.findeMit(personId)?.let {
-            PersonSchonInAnderemRaum(it.id)
-        }
-
         val raum = raumRepository.findeMit(raumId) ?: return RaumExistiertNicht
 
         raum.fuegePersonHinzu(personId)
@@ -33,7 +29,6 @@ class PersonHinzufuegung(
 
     sealed class Ergebnis
     object PersonHinzugefuegt : Ergebnis()
-    class PersonSchonInAnderemRaum(val raumId: Raum.Id) : Ergebnis()
     object PersonExistiertNicht : Ergebnis()
     object RaumExistiertNicht : Ergebnis()
 }
