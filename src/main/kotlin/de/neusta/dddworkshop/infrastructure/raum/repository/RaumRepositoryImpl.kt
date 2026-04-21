@@ -1,6 +1,5 @@
 package de.neusta.dddworkshop.infrastructure.raum.repository
 
-import de.neusta.dddworkshop.domain.person.Person
 import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.domain.raum.RaumRepository
 import org.springframework.stereotype.Repository
@@ -26,5 +25,6 @@ class RaumRepositoryImpl : RaumRepository {
 
     override fun findeMit(raumId: Raum.Id): Raum? = raumList.firstOrNull { it.id == raumId }
 
-    override fun findeMit(personId: Person.Id): Raum? = raumList.firstOrNull { it.personen.contains(personId) }
+    override fun findeMit(benutzername: Raum.Person.Benutzername) =
+        raumList.firstOrNull { it.personen.map { person -> person.benutzername }.contains(benutzername) }
 }

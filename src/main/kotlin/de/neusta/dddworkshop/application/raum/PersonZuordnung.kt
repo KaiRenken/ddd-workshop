@@ -1,32 +1,44 @@
 package de.neusta.dddworkshop.application.raum
 
+import de.neusta.dddworkshop.common.Erzeugt
 import de.neusta.dddworkshop.common.UseCase
-import de.neusta.dddworkshop.domain.person.Person
-import de.neusta.dddworkshop.domain.person.PersonRepository
 import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.domain.raum.RaumRepository
 
 @UseCase
 class PersonZuordnung(
-    private val personRepository: PersonRepository,
     private val raumRepository: RaumRepository
 ) {
 
     fun ordnePersonRaumZu(
-        personId: Person.Id,
+        vorname: String,
+        nachname: String,
+        namenszusatz: String?,
+        benutzerame: String,
         raumId: Raum.Id
     ): Ergebnis {
-        if (!personRepository.existiertMit(personId)) return PersonExistiertNicht
-
-        raumRepository.findeMit(personId)?.let {
-            PersonSchonInAnderemRaum(it.id)
-        }
-
         val raum = raumRepository.findeMit(raumId) ?: return RaumExistiertNicht
 
-        raum.fuegePersonHinzu(personId)
+        val person = Raum.Person(
+            vorname = vorname,
+            nachname = nachname,
+            namenszusatz = namenszusatz,
+            benutzername = benutzerame
+        )
 
-        raumRepository.bearbeite(raum)
+        when (person) {
+            is Erzeugt -> {
+                raumRepository.findeMit(person.value.benutzername)?.let {
+                    return PersonSchonInAnderemRaum(it.id)
+                }
+
+                raum.fuegePersonHinzu(person.value)
+
+                raumRepository.bearbeite(raum)
+            }
+
+            is de.neusta.dddworkshop.common.UngueltigeArgumente -> UngueltigeArgumente(person.fehler)
+        }
 
         return PersonHinzugefuegt
     }
@@ -34,6 +46,6 @@ class PersonZuordnung(
     sealed class Ergebnis
     object PersonHinzugefuegt : Ergebnis()
     class PersonSchonInAnderemRaum(val raumId: Raum.Id) : Ergebnis()
-    object PersonExistiertNicht : Ergebnis()
     object RaumExistiertNicht : Ergebnis()
+    class UngueltigeArgumente(val fehler: List<String>) : Ergebnis()
 }

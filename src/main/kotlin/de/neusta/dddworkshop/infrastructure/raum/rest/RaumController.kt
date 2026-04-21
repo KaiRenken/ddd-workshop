@@ -3,7 +3,6 @@ package de.neusta.dddworkshop.infrastructure.raum.rest
 import de.neusta.dddworkshop.application.raum.PersonZuordnung
 import de.neusta.dddworkshop.application.raum.RaumAbfrage
 import de.neusta.dddworkshop.application.raum.RaumAnlage
-import de.neusta.dddworkshop.domain.person.Person
 import de.neusta.dddworkshop.domain.raum.Raum
 import de.neusta.dddworkshop.infrastructure.common.ErrorResponseDto
 import de.neusta.dddworkshop.infrastructure.raum.rest.dto.CreateRaumDto
@@ -74,24 +73,25 @@ class RaumController(
         @RequestBody putPersonInRaumDto: PutPersonInRaumDto
     ): ResponseEntity<Any> {
         personZuordnung.ordnePersonRaumZu(
-            personId = Person.Id(putPersonInRaumDto.personId),
+            vorname = putPersonInRaumDto.vorname,
+            nachname = putPersonInRaumDto.nachname,
+            namenszusatz = putPersonInRaumDto.namenszusatz,
+            benutzerame = putPersonInRaumDto.benutzername,
             raumId = Raum.Id(raumId)
         ).apply {
             when (this) {
-                PersonZuordnung.PersonExistiertNicht -> return ResponseEntity(
-                    ErrorResponseDto("Die Person mit der ID ${putPersonInRaumDto.personId} existiert nicht."),
-                    HttpStatus.NOT_FOUND
-                )
-
                 PersonZuordnung.PersonHinzugefuegt -> return ResponseEntity.noContent().build()
 
                 is PersonZuordnung.PersonSchonInAnderemRaum -> return ResponseEntity.badRequest()
-                    .body(ErrorResponseDto("Die Person mit der ID ${putPersonInRaumDto.personId} ist schon im Raum mit der ID ${this.raumId.value}"))
+                    .body(ErrorResponseDto("Die Person mit dem Benutzernamen ${putPersonInRaumDto.benutzername} ist schon im Raum mit der ID ${this.raumId.value}"))
 
                 PersonZuordnung.RaumExistiertNicht -> return ResponseEntity(
                     ErrorResponseDto("Der Raum mit der ID $raumId existiert nicht."),
                     HttpStatus.NOT_FOUND
                 )
+
+                is PersonZuordnung.UngueltigeArgumente -> return ResponseEntity.badRequest()
+                    .body("Unguelige Argumente: '${this.fehler}'")
             }
         }
     }
